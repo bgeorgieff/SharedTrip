@@ -11,6 +11,10 @@ module.exports = {
 
         register(req, res, next) {
             res.render('./users/register')
+        },
+        logout(req, res, next) {
+            req.user = null
+            res.clearCookie(cookie).redirect('/home')
         }
     },
 
@@ -31,7 +35,9 @@ module.exports = {
                 
                 const token = jwt.createToken(user)
 
-                res.status(201).cookie(cookie, token, {maxAge: 3600000}).redirect('/home/')
+                res.status(201)
+                    .cookie(cookie, token, {maxAge: 3600000})
+                    .redirect('/home/')
                 
             })
         },
