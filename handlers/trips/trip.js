@@ -30,10 +30,10 @@ const trippSchema = new Schema({
         type: ObjectID,
         ref: 'User'
     },
-    otherPpl: {
+    otherPpl: [{
         type: ObjectID,
         ref: 'User'
-    }
+    }]
 })
 
 module.exports = new Model('Trip', trippSchema)

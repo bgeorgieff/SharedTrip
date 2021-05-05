@@ -31,15 +31,25 @@
         <hr>
         <div style="display: flex; border-radius: 5px;">
             <div style="width: 50%; display: flex;">
-                <img style="max-width: 600px;" class="img-fluid rounded"
+                <img style="max-width: 100%;" class="img-fluid rounded"
                     src="{{trip.carImage}}"
                     alt="">
             </div>
             <div style="width: 50%; word-wrap: break-word; padding: 1%; ">
-                <p style="width: 100%; word-wrap: break-word;" class="lead">
-                    {{trip.description}}</p>
-                    
-                <a href="#" class="btn btn-danger">Close this tripp</a>
+                <p style="width: 100%; word-wrap: break-word;" class="lead">{{trip.description}}</p>
+                    {{#if isTheDriver}}
+                    <a href="/trip/close-trip/{{trip._id}}" class="btn btn-danger">Close this tripp</a>
+                    {{else}}
+                    {{#if isAlreadyJoined}}
+                    <a class="btn btn-info">Already joined. Don't be late!</a>
+                    {{else}}
+                    {{#if areSeatsAvailable}}
+                    <a href="/trip/join-trip/{{trip._id}}" class="btn btn-info">Join now, {{availableSeats}} seats left</a>
+                    {{else}}
+                    <a class="btn btn-secondary">No seats available [0]</a>
+                    {{/if}}
+                    {{/if}}
+                    {{/if}}
             </div>
         </div>
         <hr>
