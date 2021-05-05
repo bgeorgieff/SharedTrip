@@ -5,6 +5,6 @@ module.exports = (app) => {
 
     app.use('/users', router.users)
 
-    // app.use('/trips', router.trips)
+    app.use('/trip', router.trips)
 
 }

@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const handler = require('../handlers/users')
+const isAuth = require('../utils/isAuth')
 
 router.get('/login', handler.get.login) 
 router.get('/register', handler.get.register) 
+router.get('/logout', isAuth(true), handler.get.logout) 
 
 router.post('/login', handler.post.login)
 router.post('/register', handler.post.register)
