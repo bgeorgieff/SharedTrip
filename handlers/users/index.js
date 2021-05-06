@@ -49,6 +49,13 @@ module.exports = {
                 rePassword
             } = req.body
 
+            if(password !== rePassword) {
+                return res.render('./users/register.hbs', {
+                    message: "Your passwords don't match",
+                    oldDetails: {email, password, rePassword}
+                })
+            }
+
             User.create({email, password}).then(() => {
                 res.redirect('/users/login')
             })
