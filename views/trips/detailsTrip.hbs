@@ -21,8 +21,8 @@
             <img style="display: block; margin: 0 auto; max-width: 100px;"
                 src="https://i-love-png.com/images/family-svg-clipart-white-3.png" />
             <h5 style="font-weight: bold;">SharedTripp Buddies</h5>
-            {{#each otherPpl}}
-            <p>{{this}}</p>
+            {{#each trip.otherPpl}}
+            <p>{{this.email}}</p>
             {{else}}
             <p>..............</p>
             {{/each}}

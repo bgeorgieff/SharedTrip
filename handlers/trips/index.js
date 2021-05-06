@@ -24,7 +24,8 @@ module.exports = {
         
         detailsTrip(req, res, next) {
             const {id} = req.params
-            Trip.findById(id).lean().then((trip) => {
+
+            Trip.findById(id).populate('otherPpl').lean().then((trip) => {
                 const currentUser = JSON.stringify(req.user._id)
                 const availableSeats = (trip.seats) - trip.otherPpl.length
 
@@ -51,7 +52,10 @@ module.exports = {
             const {id} = req.params
             const { _id } = req.user
 
-            Trip.updateOne({_id: id}, {$push: {otherPpl: _id}}).then((upd) => {
+            Promise.all([
+                Trip.updateOne({_id: id}, {$push: {otherPpl: _id} }),
+                User.updateOne({_id}, {$push: {tripHistory: id} })
+            ]).then(([updTrip, updUser]) => {
                 res.redirect(`/trip/details-trip/${id}`)
             })
         }
